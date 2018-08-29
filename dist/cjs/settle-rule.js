@@ -45,15 +45,13 @@ var SettleRule = /** @class */ (function () {
         return origin;
     };
     SettleRule.prototype.valueOf = function () {
+        return this.toString();
+    };
+    SettleRule.prototype.toString = function () {
         var string = "";
         for (var _i = 0, _a = this.parts; _i < _a.length; _i++) {
             var part = _a[_i];
-            if (part instanceof StartOfPart) {
-                string += string.length > 0 ? "_" + part.unit : part.unit;
-            }
-            else if (part instanceof DurationOffsetPart) {
-                string += string.length > 0 ? (part.sign > 0 ? "+" : "-") + part.duration.toISO() : part.duration.toISO();
-            }
+            string += part.toRuleString(string.length > 0);
         }
         return string;
     };
@@ -67,6 +65,9 @@ var StartOfPart = /** @class */ (function () {
     StartOfPart.prototype.apply = function (origin) {
         return start_of_1.startOf(origin, this.unit);
     };
+    StartOfPart.prototype.toRuleString = function (prefixWithSeparator) {
+        return (prefixWithSeparator ? "_" : "") + this.unit;
+    };
     return StartOfPart;
 }());
 exports.StartOfPart = StartOfPart;
@@ -77,6 +78,9 @@ var DurationOffsetPart = /** @class */ (function () {
     }
     DurationOffsetPart.prototype.apply = function (origin) {
         return this.sign > 0 ? origin.plus(this.duration) : this.sign < 0 ? origin.minus(this.duration) : origin;
+    };
+    DurationOffsetPart.prototype.toRuleString = function (prefixWithSeparator) {
+        return (prefixWithSeparator ? this.sign ? "+" : "-" : "") + this.duration.toISO();
     };
     return DurationOffsetPart;
 }());
