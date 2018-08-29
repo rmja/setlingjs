@@ -44,19 +44,19 @@ export function startOf(origin: DateTime, unit: StartOfUnit) {
         case "year":
             return origin.startOf(unit);
         case "monday":
-            return startofWeekday(1);
+            return startOfWeekday(1);
         case "tuesday":
-            return startofWeekday(2);
+            return startOfWeekday(2);
         case "wednesday":
-            return startofWeekday(3);
+            return startOfWeekday(3);
         case "thursday":
-            return startofWeekday(4);
+            return startOfWeekday(4);
         case "friday":
-            return startofWeekday(5);
+            return startOfWeekday(5);
         case "saturday":
-            return startofWeekday(6);
+            return startOfWeekday(6);
         case "sunday":
-            return startofWeekday(7);
+            return startOfWeekday(7);
         case "january":
             return startOfMonth(1);
         case "february":
@@ -82,7 +82,20 @@ export function startOf(origin: DateTime, unit: StartOfUnit) {
         case "december":
             return startOfMonth(12);
         case "season":
-            return origin.startOf("quarter").minus({ months: 1 });
+            // 1 -> 12
+            // 2 -> 12
+            // 3 -> 3
+            // 4 -> 3
+            // 5 -> 3
+            // 6 -> 6
+            // 7 -> 6
+            // 8 -> 6
+            // 9 -> 9
+            // 10 -> 9
+            // 11 -> 9
+            // 12 -> 12
+            let season = Math.floor((origin.month % 12) / 3);
+            return season ? startOfMonth(season * 3) : startOfMonth(12);
         case "spring":
             return startOfMonth(3);
         case "summer":
@@ -93,7 +106,7 @@ export function startOf(origin: DateTime, unit: StartOfUnit) {
             return startOfMonth(12);
     }
 
-    function startofWeekday(weekday: number) {
+    function startOfWeekday(weekday: number) {
         const startOfMonday = origin.startOf("day").minus({ days: origin.weekday - 1 }); // origin.weekday: 1 = monday, 7 = sunday
         const settled = startOfMonday.plus({ days: weekday - 1 });
         return settled <= origin ? settled : settled.minus({ days: 7 });

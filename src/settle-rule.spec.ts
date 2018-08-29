@@ -1,3 +1,5 @@
+import * as cases from 'cases';
+
 import { DateTime } from 'luxon';
 import { SettleRule } from "./settle-rule";
 import { SettleRuleBuilder } from './settle-rule-builder';
@@ -34,7 +36,7 @@ describe("parse", () => {
         expect(rule.valueOf()).to.eq(new SettleRuleBuilder().plus("P1D").rule.valueOf());
     });
 
-    it("should parse duration with +", () => {
+    it("should parse duration with -", () => {
         const rule = SettleRule.parse("-P1D");
 
         expect(rule.valueOf()).to.eq(new SettleRuleBuilder().minus("P1D").rule.valueOf());
@@ -47,9 +49,9 @@ describe("parse", () => {
     });
 
     it("should parse startOf with multiple durations", () => {
-        const rule = SettleRule.parse("day+P1D-PT1H");
+        const rule = SettleRule.parse("day+P1D-PT2H");
 
-        expect(rule.valueOf()).to.eq(new SettleRuleBuilder().startOf("day").plus("P1D").minus("PT1H").rule.valueOf());
+        expect(rule.valueOf()).to.eq(new SettleRuleBuilder().startOf("day").plus("P1D").minus("PT2H").rule.valueOf());
     });
 });
 
@@ -67,4 +69,17 @@ describe("settle", () => {
 
         expect(settled.valueOf()).to.eq(DateTime.fromObject({ year: 2014, month: 11, day: 13, hour: 23 }).valueOf());
     });
+    
+    it("should settle expected reading date", cases([
+        [10, 31, 1],
+        [10, 31, 14],
+        [10, 31, 15],
+        [11, 30, 16],
+        [11, 30, 30]
+    ], (expectedMonth, expectedDay, day) => {
+        const origin = DateTime.fromObject({ year: 2014, month: 11, day: day, hour: 9 });
+        const settled = SettleRule.parse("-P15D_month+P1M-P1D").settle(origin);
+
+        expect(settled.valueOf()).to.eq(DateTime.fromObject({ year: 2014, month: expectedMonth, day: expectedDay }).valueOf());
+    }));
 })

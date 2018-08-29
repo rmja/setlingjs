@@ -1,6 +1,9 @@
+import * as cases from 'cases';
+
+import { StartOfUnit, startOf } from "./start-of";
+
 import { DateTime } from 'luxon';
 import { expect } from 'chai';
-import { startOf } from "./start-of";
 
 describe("startOf", () => {
     it("should return start of day", () => {
@@ -10,73 +13,58 @@ describe("startOf", () => {
         expect(result.valueOf()).to.eq(DateTime.fromObject({ year: 2014, month: 11, day: 12 }).valueOf());
     });
 
-    it("should return start of weekday before", () => {
-        const origin = DateTime.fromObject({ year: 2014, month: 11, day: 12, hour: 21 }); // wednesday
-        const result = startOf(origin, "monday");
+    it("should return start of weekday", () => cases<StartOfUnit, number>([
+        ["monday", 10],
+        ["tuesday", 11],
+        ["wednesday", 12],
+        ["thursday", 6],
+        ["friday", 7],
+        ["saturday", 8],
+        ["sunday", 9],
+    ], (weekday, expectedDay) => {
+        const origin = DateTime.fromObject({ year: 2014, month: 11, day: 12, hour: 21 }); // Wednesday
+        const result = startOf(origin, weekday);
 
-        expect(result.valueOf()).to.eq(DateTime.fromObject({ year: 2014, month: 11, day: 10 }).valueOf());
-    });
+        expect(result.valueOf()).to.eq(DateTime.fromObject({ year: 2014, month: 11, day: expectedDay }).valueOf());
+    }));
 
-    it("should return start of weekday same", () => {
-        const origin = DateTime.fromObject({ year: 2014, month: 11, day: 12, hour: 21 }); // wednesday
-        const result = startOf(origin, "wednesday");
-
-        expect(result.valueOf()).to.eq(DateTime.fromObject({ year: 2014, month: 11, day: 12 }).valueOf());
-    });
-
-    it("should return start of weekday after", () => {
-        const origin = DateTime.fromObject({ year: 2014, month: 11, day: 12, hour: 21 }); // wednesday
-        const result = startOf(origin, "friday");
-
-        expect(result.valueOf()).to.eq(DateTime.fromObject({ year: 2014, month: 11, day: 7 }).valueOf());
-    });
-
-    it("should return start of month before", () => {
+    it("should return start of month", () => cases<StartOfUnit, number, number>([
+        ["january", 2014, 1],
+        ["february", 2014, 2],
+        ["march", 2014, 3],
+        ["april", 2014, 4],
+        ["may", 2014, 5],
+        ["june", 2014, 6],
+        ["july", 2014, 7],
+        ["august", 2014, 8],
+        ["september", 2014, 9],
+        ["october", 2014, 10],
+        ["november", 2014, 11],
+        ["december", 2013, 12],
+    ], (month, expectedYear, expectedMonth) => {
         const origin = DateTime.fromObject({ year: 2014, month: 11, day: 12, hour: 21 });
-        const result = startOf(origin, "april");
+        const result = startOf(origin, month);
 
-        expect(result.valueOf()).to.eq(DateTime.fromObject({ year: 2014, month: 4, day: 1 }).valueOf());
-    });
+        expect(result.valueOf()).to.eq(DateTime.fromObject({ year: expectedYear, month: expectedMonth, day: 1 }).valueOf());
+    }));
 
-    it("should return start of month same", () => {
-        const origin = DateTime.fromObject({ year: 2014, month: 11, day: 12, hour: 21 });
-        const result = startOf(origin, "november");
-
-        expect(result.valueOf()).to.eq(DateTime.fromObject({ year: 2014, month: 11, day: 1 }).valueOf());
-    });
-
-    it("should return start of month after", () => {
-        const origin = DateTime.fromObject({ year: 2014, month: 11, day: 12, hour: 21 });
-        const result = startOf(origin, "december");
-
-        expect(result.valueOf()).to.eq(DateTime.fromObject({ year: 2013, month: 12, day: 1 }).valueOf());
-    });
-
-    it("should return start of season", () => {
-        const origin = DateTime.fromObject({ year: 2014, month: 11, day: 12, hour: 21 });
+    it("should return start of season", () => cases([
+        [1, 2013, 12],
+        [1, 2013, 12],
+        [1, 2014, 3],
+        [1, 2014, 3],
+        [1, 2014, 3],
+        [1, 2014, 6],
+        [1, 2014, 6],
+        [1, 2014, 6],
+        [1, 2014, 9],
+        [1, 2014, 9],
+        [1, 2014, 9],
+        [1, 2014, 12]
+    ], (month, expectedYear, expectedMonth) => {
+        const origin = DateTime.fromObject({ year: 2014, month: month, day: 12, hour: 21 });
         const result = startOf(origin, "season");
 
-        expect(result.valueOf()).to.eq(DateTime.fromObject({ year: 2014, month: 9, day: 1 }).valueOf());
-    });
-
-    it("should return start of season before", () => {
-        const origin = DateTime.fromObject({ year: 2014, month: 11, day: 12, hour: 21 });
-        const result = startOf(origin, "summer");
-
-        expect(result.valueOf()).to.eq(DateTime.fromObject({ year: 2014, month: 6, day: 1 }).valueOf());
-    });
-
-    it("should return start of season same", () => {
-        const origin = DateTime.fromObject({ year: 2014, month: 11, day: 12, hour: 21 });
-        const result = startOf(origin, "autumn");
-
-        expect(result.valueOf()).to.eq(DateTime.fromObject({ year: 2014, month: 9, day: 1 }).valueOf());
-    });
-
-    it("should return start of season after", () => {
-        const origin = DateTime.fromObject({ year: 2014, month: 11, day: 12, hour: 21 });
-        const result = startOf(origin, "winter");
-
-        expect(result.valueOf()).to.eq(DateTime.fromObject({ year: 2013, month: 12, day: 1 }).valueOf());
-    });
+        expect(result.valueOf()).to.eq(DateTime.fromObject({ year: expectedYear, month: expectedMonth, day: 1 }).valueOf());
+    }));
 });

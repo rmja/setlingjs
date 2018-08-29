@@ -50,14 +50,13 @@ export class SettleRule {
     }
 
     valueOf() {
+        return this.toString();
+    }
+
+    toString() {
         let string = "";
         for (const part of this.parts) {
-            if (part instanceof StartOfPart) {
-                string += string.length > 0 ? "_" + part.unit : part.unit;
-            }
-            else if (part instanceof DurationOffsetPart) {
-                string += string.length > 0 ? (part.sign > 0 ? "+" : "-") + part.duration.toISO() : part.duration.toISO();
-            }
+            string += part.toRuleString(string.length > 0);
         }
         return string;
     }
@@ -65,14 +64,19 @@ export class SettleRule {
 
 export interface IPart {
     apply(origin: DateTime): DateTime;
+    toRuleString(prefixWithSeparator: boolean): string;
 }
 
 export class StartOfPart implements IPart {
-    constructor(public unit: StartOfUnit) {
+    constructor(private unit: StartOfUnit) {
     }
 
     apply(origin: DateTime): DateTime {
         return startOf(origin, this.unit);
+    }
+
+    toRuleString(prefixWithSeparator: boolean) {
+        return (prefixWithSeparator ? "_" : "") + this.unit;
     }
 }
 
@@ -82,5 +86,9 @@ export class DurationOffsetPart implements IPart {
 
     apply(origin: DateTime): DateTime {
         return this.sign > 0 ? origin.plus(this.duration) : this.sign < 0 ? origin.minus(this.duration) : origin;
+    }
+
+    toRuleString(prefixWithSeparator: boolean) {
+        return (prefixWithSeparator ? this.sign ? "+" : "-" : "") + this.duration.toISO();
     }
 }
