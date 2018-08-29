@@ -1,0 +1,39 @@
+{
+  "name": "setlingjs",
+  "version": "0.0.1",
+  "description": "A rule based time settle for luxon",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rmja/setlingjs.git"
+  },
+  "author": "Rasmus Melchior Jacobsen <rmja@laesoe.org>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc && tsc -p tsconfig.cjs.json && rimraf dist/cjs/**/*.d.ts dist/**/*.spec.*",
+    "test": "karma start --single-run --browsers ChromeHeadless karma.config.js",
+    "watch": "karma start --auto-watch --browsers ChromeDebugging karma.config.js",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.4",
+    "@types/luxon": "^1.2.2",
+    "@types/mocha": "^5.2.5",
+    "chai": "^4.1.2",
+    "esm": "^3.0.80",
+    "karma": "^3.0.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-mocha": "^1.3.0",
+    "karma-typescript": "^3.0.13",
+    "karma-typescript-es6-transform": "^1.0.4",
+    "luxon": "^1.3.3",
+    "mocha": "^5.2.0",
+    "rimraf": "^2.6.2",
+    "typescript": "^3.0.1"
+  },
+  "peerDependencies": {
+    "luxon": "^1.3.3"
+  }
+}
