@@ -1,6 +1,6 @@
 {
-  "name": "setlingjs",
-  "version": "0.0.3",
+  "name": "setling",
+  "version": "0.0.1",
   "description": "A rule based time settle for luxon",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
