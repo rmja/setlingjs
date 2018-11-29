@@ -24,6 +24,12 @@ describe("parse", () => {
         expect(rule.valueOf()).to.eq(new SettleRuleBuilder().startOf("day").rule.valueOf());
     });
 
+    it("should parse multiple startOf", () => {
+        const rule = SettleRule.parse("hour_day");
+
+        expect(rule.valueOf()).to.eq(new SettleRuleBuilder().startOf("hour").startOf("day").rule.valueOf());
+    });
+
     it("should parse duration", () => {
         const rule = SettleRule.parse("P1D");
 
@@ -52,6 +58,12 @@ describe("parse", () => {
         const rule = SettleRule.parse("day+P1D-PT2H");
 
         expect(rule.valueOf()).to.eq(new SettleRuleBuilder().startOf("day").plus("P1D").minus("PT2H").rule.valueOf());
+    });
+
+    it("should parse multiple startOf and multiple durations", () => {
+        const rule = SettleRule.parse("day+P1D-PT2H_day+P1Y");
+
+        expect(rule.valueOf()).to.eq(new SettleRuleBuilder().startOf("day").plus("P1D").minus("PT2H").startOf("day").plus("P1Y").rule.valueOf());
     });
 });
 

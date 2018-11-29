@@ -12,7 +12,7 @@ export interface IPart {
     toRuleString(prefixWithSeparator: boolean): string;
 }
 export declare class StartOfPart implements IPart {
-    private unit;
+    unit: StartOfUnit;
     constructor(unit: StartOfUnit);
     apply(origin: DateTime): DateTime;
     toRuleString(prefixWithSeparator: boolean): string;

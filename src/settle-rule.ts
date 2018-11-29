@@ -3,7 +3,7 @@ import { StartOfUnit, startOf } from './start-of';
 
 import { SettleRuleBuilder } from './settle-rule-builder';
 
-const firstRegex = /^([_+-])?([a-zA-Z0-9]+)(.*)/;
+const firstRegex    = /^([_+-])?([a-zA-Z0-9]+)(.*)/;
 const remainingRegex = /^([_+-])([a-zA-Z0-9]+)(.*)/;
 
 export class SettleRule {
@@ -68,7 +68,7 @@ export interface IPart {
 }
 
 export class StartOfPart implements IPart {
-    constructor(private unit: StartOfUnit) {
+    constructor(public unit: StartOfUnit) {
     }
 
     apply(origin: DateTime): DateTime {
