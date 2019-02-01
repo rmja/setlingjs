@@ -9,18 +9,18 @@ export declare class SettleRule {
 }
 export interface IPart {
     apply(origin: DateTime): DateTime;
-    toRuleString(prefixWithSeparator: boolean): string;
+    toRuleString(forcePrefixWithSeparator: boolean): string;
 }
 export declare class StartOfPart implements IPart {
     unit: StartOfUnit;
     constructor(unit: StartOfUnit);
     apply(origin: DateTime): DateTime;
-    toRuleString(prefixWithSeparator: boolean): string;
+    toRuleString(forcePrefixWithSeparator: boolean): string;
 }
 export declare class DurationOffsetPart implements IPart {
-    sign: number;
+    sign: -1 | 1;
     duration: Duration;
-    constructor(sign: number, duration: Duration);
+    constructor(sign: -1 | 1, duration: Duration);
     apply(origin: DateTime): DateTime;
-    toRuleString(prefixWithSeparator: boolean): string;
+    toRuleString(forcePrefixWithSeparator: boolean): string;
 }

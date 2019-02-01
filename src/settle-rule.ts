@@ -64,7 +64,7 @@ export class SettleRule {
 
 export interface IPart {
     apply(origin: DateTime): DateTime;
-    toRuleString(prefixWithSeparator: boolean): string;
+    toRuleString(forcePrefixWithSeparator: boolean): string;
 }
 
 export class StartOfPart implements IPart {
@@ -75,20 +75,20 @@ export class StartOfPart implements IPart {
         return startOf(origin, this.unit);
     }
 
-    toRuleString(prefixWithSeparator: boolean) {
-        return (prefixWithSeparator ? "_" : "") + this.unit;
+    toRuleString(forcePrefixWithSeparator: boolean) {
+        return (forcePrefixWithSeparator ? "_" : "") + this.unit;
     }
 }
 
 export class DurationOffsetPart implements IPart {
-    constructor(public sign: number, public duration: Duration) {
+    constructor(public sign: -1 | 1, public duration: Duration) {
     }
 
     apply(origin: DateTime): DateTime {
         return this.sign > 0 ? origin.plus(this.duration) : this.sign < 0 ? origin.minus(this.duration) : origin;
     }
 
-    toRuleString(prefixWithSeparator: boolean) {
-        return (prefixWithSeparator ? this.sign ? "+" : "-" : "") + this.duration.toISO();
+    toRuleString(forcePrefixWithSeparator: boolean) {
+        return (this.sign === -1 ? "-" : forcePrefixWithSeparator ? "+" : "") + this.duration.toISO();
     }
 }

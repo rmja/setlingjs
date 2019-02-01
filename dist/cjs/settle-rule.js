@@ -65,8 +65,8 @@ var StartOfPart = /** @class */ (function () {
     StartOfPart.prototype.apply = function (origin) {
         return start_of_1.startOf(origin, this.unit);
     };
-    StartOfPart.prototype.toRuleString = function (prefixWithSeparator) {
-        return (prefixWithSeparator ? "_" : "") + this.unit;
+    StartOfPart.prototype.toRuleString = function (forcePrefixWithSeparator) {
+        return (forcePrefixWithSeparator ? "_" : "") + this.unit;
     };
     return StartOfPart;
 }());
@@ -79,8 +79,8 @@ var DurationOffsetPart = /** @class */ (function () {
     DurationOffsetPart.prototype.apply = function (origin) {
         return this.sign > 0 ? origin.plus(this.duration) : this.sign < 0 ? origin.minus(this.duration) : origin;
     };
-    DurationOffsetPart.prototype.toRuleString = function (prefixWithSeparator) {
-        return (prefixWithSeparator ? this.sign ? "+" : "-" : "") + this.duration.toISO();
+    DurationOffsetPart.prototype.toRuleString = function (forcePrefixWithSeparator) {
+        return (this.sign === -1 ? "-" : forcePrefixWithSeparator ? "+" : "") + this.duration.toISO();
     };
     return DurationOffsetPart;
 }());
