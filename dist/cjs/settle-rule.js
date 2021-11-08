@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DurationOffsetPart = exports.StartOfPart = exports.SettleRule = void 0;
 var luxon_1 = require("luxon");
 var start_of_1 = require("./start-of");
 var settle_rule_builder_1 = require("./settle-rule-builder");
@@ -63,7 +64,7 @@ var StartOfPart = /** @class */ (function () {
         this.unit = unit;
     }
     StartOfPart.prototype.apply = function (origin) {
-        return start_of_1.startOf(origin, this.unit);
+        return (0, start_of_1.startOf)(origin, this.unit);
     };
     StartOfPart.prototype.toRuleString = function (forcePrefixWithSeparator) {
         return (forcePrefixWithSeparator ? "_" : "") + this.unit;

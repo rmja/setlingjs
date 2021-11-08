@@ -8,7 +8,7 @@ var SettleRuleBuilder = /** @class */ (function () {
         get: function () {
             return this._rule;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     SettleRuleBuilder.prototype.startOf = function (unit) {

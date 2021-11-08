@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.startOf = void 0;
 function startOf(origin, unit) {
     switch (unit) {
         case "second":

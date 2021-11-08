@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SettleRuleBuilder = void 0;
 var settle_rule_1 = require("./settle-rule");
 var luxon_1 = require("luxon");
 var SettleRuleBuilder = /** @class */ (function () {
@@ -10,7 +11,7 @@ var SettleRuleBuilder = /** @class */ (function () {
         get: function () {
             return this._rule;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     SettleRuleBuilder.prototype.startOf = function (unit) {

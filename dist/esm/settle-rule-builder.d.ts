@@ -3,7 +3,7 @@ import { Duration } from 'luxon';
 import { StartOfUnit } from "./start-of";
 export declare class SettleRuleBuilder {
     private _rule;
-    readonly rule: SettleRule;
+    get rule(): SettleRule;
     startOf(unit: StartOfUnit): this;
     plus(duration: Duration | string): this;
     minus(duration: Duration | string): this;
