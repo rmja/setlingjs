@@ -24,6 +24,18 @@ describe("parse", () => {
         expect(rule.valueOf()).to.eq(new SettleRuleBuilder().startOf("day").rule.valueOf());
     });
 
+    it("should parse nearest", () => {
+        const rule = SettleRule.parse("~day");
+
+        expect(rule.valueOf()).to.eq(new SettleRuleBuilder().nearest("day").rule.valueOf());
+    });
+
+    it("should parse endOf", () => {
+        const rule = SettleRule.parse("^day");
+
+        expect(rule.valueOf()).to.eq(new SettleRuleBuilder().endOf("day").rule.valueOf());
+    });
+
     it("should parse multiple startOf", () => {
         const rule = SettleRule.parse("hour_day");
 

@@ -1,9 +1,10 @@
 import * as cases from 'cases';
 
-import { StartOfUnit, startOf } from "./start-of";
+import { startOf } from "./start-of";
 
 import { DateTime } from 'luxon';
 import { expect } from 'chai';
+import { SettleUnit } from './settle-unit';
 
 describe("startOf", () => {
     it("should return start of day", () => {
@@ -13,7 +14,7 @@ describe("startOf", () => {
         expect(result.valueOf()).to.eq(DateTime.fromObject({ year: 2014, month: 11, day: 12 }).valueOf());
     });
 
-    it("should return start of weekday", () => cases<StartOfUnit, number>([
+    it("should return start of weekday", () => cases<SettleUnit, number>([
         ["monday", 10],
         ["tuesday", 11],
         ["wednesday", 12],
@@ -28,7 +29,7 @@ describe("startOf", () => {
         expect(result.valueOf()).to.eq(DateTime.fromObject({ year: 2014, month: 11, day: expectedDay }).valueOf());
     }));
 
-    it("should return start of month", () => cases<StartOfUnit, number, number>([
+    it("should return start of month", () => cases<SettleUnit, number, number>([
         ["january", 2014, 1],
         ["february", 2014, 2],
         ["march", 2014, 3],

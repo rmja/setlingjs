@@ -1,10 +1,11 @@
 import { DateTime, Duration } from "luxon";
-import { StartOfUnit, startOf } from './start-of';
 
 import { SettleRuleBuilder } from './settle-rule-builder';
+import { IPart } from "./parts/part";
+import { SettleUnit } from "./settle-unit";
 
-const firstRegex    = /^([_+-])?([a-zA-Z0-9]+)(.*)/;
-const remainingRegex = /^([_+-])([a-zA-Z0-9]+)(.*)/;
+const firstRegex    = /^([_~^+-])?([a-zA-Z0-9]+)(.*)/;
+const remainingRegex = /^([_~^+-])([a-zA-Z0-9]+)(.*)/;
 
 export class SettleRule {
     parts: IPart[] = [];
@@ -12,7 +13,6 @@ export class SettleRule {
     static parse(input: string) {
         const builder = new SettleRuleBuilder();
         let match = input.match(firstRegex);
-        
         if (match) {
             addPart(match[1] || (match[2][0] === "P" ? "+" : "_"), match[2]);
 
@@ -28,7 +28,13 @@ export class SettleRule {
         function addPart(op: string, value: string) {
             switch (op) {
                 case "_":
-                    builder.startOf(<StartOfUnit>value);
+                    builder.startOf(<SettleUnit>value);
+                    break;
+                case "~":
+                    builder.nearest(<SettleUnit>value);
+                    break;
+                case "^":
+                    builder.endOf(<SettleUnit>value);
                     break;
                 case "+":
                     builder.plus(Duration.fromISO(value));
@@ -59,36 +65,5 @@ export class SettleRule {
             string += part.toRuleString(string.length > 0);
         }
         return string;
-    }
-}
-
-export interface IPart {
-    apply(origin: DateTime): DateTime;
-    toRuleString(forcePrefixWithSeparator: boolean): string;
-}
-
-export class StartOfPart implements IPart {
-    constructor(public unit: StartOfUnit) {
-    }
-
-    apply(origin: DateTime): DateTime {
-        return startOf(origin, this.unit);
-    }
-
-    toRuleString(forcePrefixWithSeparator: boolean) {
-        return (forcePrefixWithSeparator ? "_" : "") + this.unit;
-    }
-}
-
-export class DurationOffsetPart implements IPart {
-    constructor(public sign: -1 | 1, public duration: Duration) {
-    }
-
-    apply(origin: DateTime): DateTime {
-        return this.sign > 0 ? origin.plus(this.duration) : this.sign < 0 ? origin.minus(this.duration) : origin;
-    }
-
-    toRuleString(forcePrefixWithSeparator: boolean) {
-        return (this.sign === -1 ? "-" : forcePrefixWithSeparator ? "+" : "") + this.duration.toISO();
     }
 }

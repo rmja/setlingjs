@@ -1,39 +1,7 @@
 import { DateTime } from "luxon";
+import { SettleUnit } from "./settle-unit";
 
-export type StartOfUnit =
-    "second" |
-    "minute" |
-    "hour" |
-    "day" |
-    "month" |
-    "quarter" |
-    "year" |
-    "monday" |
-    "tuesday" |
-    "wednesday" |
-    "thursday" |
-    "friday" |
-    "saturday" |
-    "sunday" |
-    "january" |
-    "february" |
-    "march" |
-    "april" |
-    "may" |
-    "june" |
-    "july" |
-    "august" |
-    "september" |
-    "october" |
-    "november" |
-    "december" |
-    "season" |
-    "spring" |
-    "summer" |
-    "autumn" |
-    "winter";
-
-export function startOf(origin: DateTime, unit: StartOfUnit) {
+export function startOf(origin: DateTime, unit: SettleUnit) {
     switch (unit) {
         case "second":
         case "minute":

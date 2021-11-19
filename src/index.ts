@@ -1,13 +1,21 @@
-import { DurationOffsetPart, SettleRule, StartOfPart } from './settle-rule';
-import { StartOfUnit, startOf } from './start-of';
-
+import { SettleRule } from './settle-rule';
+import { startOf } from './start-of';
 import { SettleRuleBuilder } from './settle-rule-builder';
+import { StartOfPart } from './parts/start-of-part';
+import { DurationPart } from './parts/duration-part';
+import { NearestPart } from './parts/nearest-part';
+import { SettleUnit } from './settle-unit';
+import { endOf } from './end-of';
+import { EndOfPart } from './parts/end-of-part';
 
 export {
     startOf,
-    StartOfUnit,
+    endOf,
+    SettleUnit,
     SettleRule,
+    SettleRuleBuilder,
     StartOfPart,
-    DurationOffsetPart,
-    SettleRuleBuilder
+    NearestPart,
+    EndOfPart,
+    DurationPart,
 };
