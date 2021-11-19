@@ -2,7 +2,7 @@ import { SettleRule } from './settle-rule';
 import { startOf } from './start-of';
 import { SettleRuleBuilder } from './settle-rule-builder';
 import { StartOfPart } from './parts/start-of-part';
-import { DurationPart } from './parts/duration-part';
+import { OffsetPart } from './parts/offset-part';
 import { NearestPart } from './parts/nearest-part';
 import { SettleUnit } from './settle-unit';
 import { endOf } from './end-of';
@@ -17,5 +17,5 @@ export {
     StartOfPart,
     NearestPart,
     EndOfPart,
-    DurationPart,
+    OffsetPart,
 };

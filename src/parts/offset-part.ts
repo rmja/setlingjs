@@ -1,7 +1,7 @@
 import { DateTime, Duration } from "luxon";
 import { IPart } from "./part";
 
-export class DurationPart implements IPart {
+export class OffsetPart implements IPart {
     constructor(public sign: -1 | 1, public duration: Duration) {
     }
 
