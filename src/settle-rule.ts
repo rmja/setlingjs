@@ -1,14 +1,14 @@
 import { DateTime, Duration } from "luxon";
 
 import { SettleRuleBuilder } from "./settle-rule-builder";
-import { IPart } from "./parts/part";
+import { Part } from "./parts/part";
 import { SettleUnit } from "./settle-unit";
 
 const firstRegex = /^([_~^+-])?([a-zA-Z0-9]+)(.*)/;
 const remainingRegex = /^([_~^+-])([a-zA-Z0-9]+)(.*)/;
 
 export class SettleRule {
-  parts: IPart[] = [];
+  parts: Part[] = [];
 
   static parse(input: string) {
     const builder = new SettleRuleBuilder();
