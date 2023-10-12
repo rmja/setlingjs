@@ -1,6 +1,7 @@
 import { EndOfPart } from "./parts/end-of-part";
 import { NearestPart } from "./parts/nearest-part";
 import { OffsetPart } from "./parts/offset-part";
+import { Part } from "./parts/part";
 import { SettleRule } from "./settle-rule";
 import { SettleRuleBuilder } from "./settle-rule-builder";
 import { SettleUnit } from "./settle-unit";
@@ -14,6 +15,7 @@ export {
   SettleUnit,
   SettleRule,
   SettleRuleBuilder,
+  Part,
   StartOfPart,
   NearestPart,
   EndOfPart,
