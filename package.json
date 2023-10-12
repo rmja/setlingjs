@@ -13,6 +13,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc && tsc -p tsconfig.cjs.json && rimraf --glob dist/**/*.spec.js*",
+    "prettier": "prettier -w src/*",
     "test": "karma start --single-run --browsers ChromeHeadless karma.config.js",
     "watch": "karma start --auto-watch --browsers ChromeDebugging karma.config.js",
     "chrome": "karma start --auto-watch --browsers Chrome karma.config.js",
@@ -31,6 +32,7 @@
     "karma-typescript": "^5.5.2",
     "luxon": "^3.0.4",
     "mocha": "^10.0.0",
+    "prettier": "^3.0.3",
     "rimraf": "^5.0.5",
     "typescript": "^5.2.2"
   },
