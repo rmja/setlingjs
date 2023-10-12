@@ -19,10 +19,6 @@ module.exports = function (config) {
       bundlerOptions: {
         entrypoints: /\.spec\.ts$/,
         sourceMap: tsconfig.compilerOptions.sourceMap,
-        acornOptions: {
-          ecmaVersion: "latest",
-        },
-        transforms: [require("karma-typescript-es6-transform")()],
       },
       coverageOptions: {
         instrumentation: false,
