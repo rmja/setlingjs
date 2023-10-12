@@ -1,4 +1,5 @@
 import { DateTime, Duration } from "luxon";
+
 import { IPart } from "./part";
 
 export class OffsetPart implements IPart {
@@ -15,5 +16,9 @@ export class OffsetPart implements IPart {
 
     toRuleString(forcePrefixWithSeparator: boolean) {
         return (this.sign === -1 ? "-" : forcePrefixWithSeparator ? "+" : "") + this.duration.toISO();
+    }
+
+    toHuman(): string {
+        return (this.sign === -1 ? "- " : "+ ") + this.duration.toHuman();
     }
 }

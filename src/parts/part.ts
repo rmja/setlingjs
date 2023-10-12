@@ -7,6 +7,7 @@ import { StartOfPart } from "./start-of-part";
 export interface IPart {
     apply(origin: DateTime): DateTime;
     toRuleString(forcePrefixWithSeparator: boolean): string;
+    toHuman(): string;
 }
 
 export type Part = NearestPart | StartOfPart | EndOfPart | OffsetPart;

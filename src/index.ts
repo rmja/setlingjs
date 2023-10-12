@@ -7,9 +7,11 @@ import { SettleRuleBuilder } from "./settle-rule-builder";
 import { SettleUnit } from "./settle-unit";
 import { StartOfPart } from "./parts/start-of-part";
 import { endOf } from "./end-of";
+import { loadLocale } from "./locale";
 import { startOf } from "./start-of";
 
 export {
+  loadLocale,
   startOf,
   endOf,
   SettleUnit,

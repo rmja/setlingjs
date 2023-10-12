@@ -5,6 +5,17 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./locales/*": {
+      "import": "./dist/esm/locales/*.js",
+      "require": "./dist/cjs/locales/*.js"
+    }
+  },
+  "sideEffects": false,
   "repository": {
     "type": "git",
     "url": "https://github.com/rmja/setlingjs.git"
@@ -12,7 +23,7 @@
   "author": "Rasmus Melchior Jacobsen <rmja@laesoe.org>",
   "license": "MIT",
   "scripts": {
-    "build": "tsc && tsc -p tsconfig.cjs.json && rimraf --glob dist/**/*.spec.js*",
+    "build": "tsc && rimraf --glob dist/esm/locales/*.d.ts dist/esm/locales/*.js.map  && tsc -p tsconfig.cjs.json && rimraf --glob dist/cjs/locales/*.js.map && rimraf --glob dist/**/*.spec.js*",
     "prettier": "prettier -w src/*",
     "test": "karma start --single-run --browsers ChromeHeadless karma.config.js",
     "watch": "karma start --auto-watch --browsers ChromeDebugging karma.config.js",
