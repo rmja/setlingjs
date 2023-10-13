@@ -1,4 +1,6 @@
 {
+  "-": "Minus {{duration}}",
+  "+": "Plus {{duration}}",
   "_hour": "Last hour",
   "^hour": "Next hour",
   "~hour": "Nearest hour",

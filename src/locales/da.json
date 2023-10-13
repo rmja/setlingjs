@@ -1,4 +1,6 @@
 {
+  "-": "Minus {{duration}}",
+  "+": "Plus {{duration}}",
   "_hour": "Seneste time",
   "^hour": "Næste time",
   "~hour": "Nærmeste time",
