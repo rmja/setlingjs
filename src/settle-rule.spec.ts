@@ -1,5 +1,3 @@
-import * as cases from "cases";
-
 import { DateTime } from "luxon";
 import { SettleRule } from "./settle-rule";
 import { SettleRuleBuilder } from "./settle-rule-builder";
@@ -16,7 +14,7 @@ describe("parse", () => {
     const rule = SettleRule.parse("day");
 
     expect(rule.valueOf()).to.eq(
-      new SettleRuleBuilder().startOf("day").rule.valueOf(),
+      new SettleRuleBuilder().startOf("day").rule.valueOf()
     );
   });
 
@@ -24,7 +22,7 @@ describe("parse", () => {
     const rule = SettleRule.parse("_day");
 
     expect(rule.valueOf()).to.eq(
-      new SettleRuleBuilder().startOf("day").rule.valueOf(),
+      new SettleRuleBuilder().startOf("day").rule.valueOf()
     );
   });
 
@@ -32,7 +30,7 @@ describe("parse", () => {
     const rule = SettleRule.parse("~day");
 
     expect(rule.valueOf()).to.eq(
-      new SettleRuleBuilder().nearest("day").rule.valueOf(),
+      new SettleRuleBuilder().nearest("day").rule.valueOf()
     );
   });
 
@@ -40,7 +38,7 @@ describe("parse", () => {
     const rule = SettleRule.parse("^day");
 
     expect(rule.valueOf()).to.eq(
-      new SettleRuleBuilder().endOf("day").rule.valueOf(),
+      new SettleRuleBuilder().endOf("day").rule.valueOf()
     );
   });
 
@@ -48,7 +46,7 @@ describe("parse", () => {
     const rule = SettleRule.parse("hour_day");
 
     expect(rule.valueOf()).to.eq(
-      new SettleRuleBuilder().startOf("hour").startOf("day").rule.valueOf(),
+      new SettleRuleBuilder().startOf("hour").startOf("day").rule.valueOf()
     );
   });
 
@@ -56,7 +54,7 @@ describe("parse", () => {
     const rule = SettleRule.parse("P1D");
 
     expect(rule.valueOf()).to.eq(
-      new SettleRuleBuilder().plus("P1D").rule.valueOf(),
+      new SettleRuleBuilder().plus("P1D").rule.valueOf()
     );
   });
 
@@ -64,7 +62,7 @@ describe("parse", () => {
     const rule = SettleRule.parse("+P1D");
 
     expect(rule.valueOf()).to.eq(
-      new SettleRuleBuilder().plus("P1D").rule.valueOf(),
+      new SettleRuleBuilder().plus("P1D").rule.valueOf()
     );
   });
 
@@ -72,7 +70,7 @@ describe("parse", () => {
     const rule = SettleRule.parse("-P1D");
 
     expect(rule.valueOf()).to.eq(
-      new SettleRuleBuilder().minus("P1D").rule.valueOf(),
+      new SettleRuleBuilder().minus("P1D").rule.valueOf()
     );
   });
 
@@ -80,7 +78,7 @@ describe("parse", () => {
     const rule = SettleRule.parse("day+P1D");
 
     expect(rule.valueOf()).to.eq(
-      new SettleRuleBuilder().startOf("day").plus("P1D").rule.valueOf(),
+      new SettleRuleBuilder().startOf("day").plus("P1D").rule.valueOf()
     );
   });
 
@@ -92,7 +90,7 @@ describe("parse", () => {
         .startOf("day")
         .plus("P1D")
         .minus("PT2H")
-        .rule.valueOf(),
+        .rule.valueOf()
     );
   });
 
@@ -106,7 +104,7 @@ describe("parse", () => {
         .minus("PT2H")
         .startOf("day")
         .plus("P1Y")
-        .rule.valueOf(),
+        .rule.valueOf()
     );
   });
 });
@@ -139,37 +137,33 @@ describe("settle", () => {
         month: 11,
         day: 13,
         hour: 23,
-      }).valueOf(),
+      }).valueOf()
     );
   });
 
-  it(
-    "should settle expected reading date",
-    cases(
-      [
-        [10, 31, 1],
-        [10, 31, 14],
-        [10, 31, 15],
-        [11, 30, 16],
-        [11, 30, 30],
-      ],
-      (expectedMonth, expectedDay, day) => {
-        const origin = DateTime.fromObject({
-          year: 2014,
-          month: 11,
-          day: day,
-          hour: 9,
-        });
-        const settled = SettleRule.parse("-P15D_month+P1M-P1D").settle(origin);
+  it("should settle expected reading date", () => {
+    const test = (expectedMonth: number, expectedDay: number, day: number) => {
+      const origin = DateTime.fromObject({
+        year: 2014,
+        month: 11,
+        day: day,
+        hour: 9,
+      });
+      const settled = SettleRule.parse("-P15D_month+P1M-P1D").settle(origin);
 
-        expect(settled.valueOf()).to.eq(
-          DateTime.fromObject({
-            year: 2014,
-            month: expectedMonth,
-            day: expectedDay,
-          }).valueOf(),
-        );
-      },
-    ),
-  );
+      expect(settled.valueOf()).to.eq(
+        DateTime.fromObject({
+          year: 2014,
+          month: expectedMonth,
+          day: expectedDay,
+        }).valueOf()
+      );
+    };
+
+    test(10, 31, 1);
+    test(10, 31, 14);
+    test(10, 31, 15);
+    test(11, 30, 16);
+    test(11, 30, 30);
+  });
 });

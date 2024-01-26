@@ -5,6 +5,7 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
+  "sideEffects": false,
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
@@ -15,7 +16,6 @@
       "require": "./dist/cjs/locales/*.js"
     }
   },
-  "sideEffects": false,
   "repository": {
     "type": "git",
     "url": "https://github.com/rmja/setlingjs.git"
@@ -23,24 +23,18 @@
   "author": "Rasmus Melchior Jacobsen <rmja@laesoe.org>",
   "license": "MIT",
   "scripts": {
-    "build": "tsc && rimraf --glob dist/esm/locales/*.d.ts dist/esm/locales/*.js.map  && tsc -p tsconfig.cjs.json && rimraf --glob dist/cjs/locales/*.js.map && rimraf --glob dist/**/*.spec.js*",
+    "build": "tsc && rimraf --glob dist/esm/locales/*.d.ts dist/esm/locales/*.js.map",
     "prettier": "prettier -w src/*",
-    "test": "karma start --single-run --browsers ChromeHeadless karma.config.js",
-    "watch": "karma start --auto-watch --browsers ChromeDebugging karma.config.js",
-    "chrome": "karma start --auto-watch --browsers Chrome karma.config.js",
+    "test": "web-test-runner",
     "clean": "rimraf dist"
   },
   "devDependencies": {
     "@types/chai": "^4.2.3",
     "@types/luxon": "^3.0.1",
     "@types/mocha": "^10.0.0",
-    "cases": "^1.0.0",
-    "chai": "^4.2.0",
-    "karma": "^6.3.8",
-    "karma-chai": "^0.1.0",
-    "karma-chrome-launcher": "^3.1.0",
-    "karma-mocha": "^2.0.1",
-    "karma-typescript": "^5.5.2",
+    "@web/dev-server-esbuild": "^1.0.1",
+    "@web/test-runner": "^0.18.0",
+    "chai": "^5.0.3",
     "luxon": "^3.0.4",
     "mocha": "^10.0.0",
     "prettier": "^3.0.3",
