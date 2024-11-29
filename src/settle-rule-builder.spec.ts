@@ -1,3 +1,4 @@
+import { Duration } from "luxon";
 import { SettleRuleBuilder } from "./settle-rule-builder";
 import { expect } from "chai";
 
@@ -6,6 +7,14 @@ describe("builder", () => {
     const builder = new SettleRuleBuilder();
 
     expect(builder.rule.valueOf()).to.eq("");
+  });
+
+  it("should handle only time component", () => {
+    const builder = new SettleRuleBuilder()
+      .startOf("hour")
+      .minus(Duration.fromObject({ hours: 1 }));
+
+    expect(builder.rule.valueOf()).to.eq("hour-PT1H");
   });
 
   it("should handle positive and negative offsets", () => {
