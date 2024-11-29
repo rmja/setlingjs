@@ -24,7 +24,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc && rimraf --glob dist/esm/locales/*.d.ts dist/esm/locales/*.js.map",
-    "prettier": "prettier -w src/*",
+    "prettier": "prettier -w src/* *.mjs",
     "test": "web-test-runner",
     "clean": "rimraf dist"
   },
