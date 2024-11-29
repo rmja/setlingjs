@@ -14,7 +14,7 @@ describe("startOf", () => {
     const result = startOf(origin, "day");
 
     expect(result.valueOf()).to.eq(
-      DateTime.fromObject({ year: 2014, month: 11, day: 12 }).valueOf()
+      DateTime.fromObject({ year: 2014, month: 11, day: 12 }).valueOf(),
     );
   });
 
@@ -33,7 +33,7 @@ describe("startOf", () => {
           year: 2014,
           month: 11,
           day: expectedDay,
-        }).valueOf()
+        }).valueOf(),
       );
     };
 
@@ -50,7 +50,7 @@ describe("startOf", () => {
     const test = (
       month: SettleUnit,
       expectedYear: number,
-      expectedMonth: number
+      expectedMonth: number,
     ) => {
       const origin = DateTime.fromObject({
         year: 2014,
@@ -65,7 +65,7 @@ describe("startOf", () => {
           year: expectedYear,
           month: expectedMonth,
           day: 1,
-        }).valueOf()
+        }).valueOf(),
       );
     };
 
@@ -87,7 +87,7 @@ describe("startOf", () => {
     const test = (
       month: number,
       expectedYear: number,
-      expectedMonth: number
+      expectedMonth: number,
     ) => {
       const origin = DateTime.fromObject({
         year: 2014,
@@ -102,7 +102,7 @@ describe("startOf", () => {
           year: expectedYear,
           month: expectedMonth,
           day: 1,
-        }).valueOf()
+        }).valueOf(),
       );
     };
 
